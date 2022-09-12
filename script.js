@@ -1,8 +1,8 @@
+const totalCart = document.querySelector('.cart__items');
 // Esse tipo de comentário que estão antes de todas as funções são chamados de JSdoc,
 // experimente passar o mouse sobre o nome das funções e verá que elas possuem descrições! 
 
 // Fique a vontade para modificar o código já escrito e criar suas próprias funções!
-
 /**
  * Função responsável por criar e retornar o elemento de imagem do produto.
  * @param {string} imageSource - URL da imagem.
@@ -49,12 +49,42 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
   return section;
 };
 
+const loading = () => {
+  const html = document.querySelector('.header');
+  const elementCreate = document.createElement('p');
+  elementCreate.innerText = 'Carregando...';
+  elementCreate.className = 'loading';
+  html.appendChild(elementCreate);
+};
+
+const removeLoad = () => {
+  const e = document.querySelector('.loading');
+  e.remove();
+};
+
+const callFetchProducts = async () => {
+  loading();
+  const products = await fetchProducts('computador');
+  const getItemsAll = document.querySelector('.items');
+  products.results.forEach((element) => {
+    const productsObj = {
+      id: element.id,
+      title: element.title,
+      thumbnail: element.thumbnail,
+    };
+    const createItemElement = createProductItemElement(productsObj);
+    getItemsAll.appendChild(createItemElement);
+  });
+  removeLoad();
+};
+callFetchProducts();
+
 /**
  * Função que recupera o ID do produto passado como parâmetro.
  * @param {Element} product - Elemento do produto.
  * @returns {string} ID do produto.
  */
-const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
+// const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
 
 /**
  * Função responsável por criar e retornar um item do carrinho.
@@ -64,12 +94,43 @@ const getIdFromProductItem = (product) => product.querySelector('span.id').inner
  * @param {string} product.price - Preço do produto.
  * @returns {Element} Elemento de um item do carrinho.
  */
+
+ function callbackCartItem(event) {
+  const eventTarget = event.target;
+  if (eventTarget.className === 'cart__item') {
+    eventTarget.remove();
+  }
+}
+
 const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
-  li.addEventListener('click', cartItemClickListener);
+  li.addEventListener('click', callbackCartItem);
   return li;
 };
+
+const addCart = async (event) => {
+  const parameter = event.target.parentNode.firstChild.innerText;
+  const awaitParameter = await fetchItem(parameter);
+
+  const cartItem = {
+    id: awaitParameter.id,
+    title: awaitParameter.title,
+    price: awaitParameter.price,
+  };
+
+  const element = createCartItemElement(cartItem);
+  totalCart.appendChild(element);
+};
+
+const callFetchItems = async () => {
+  await fetchItem('MLB1405519561');
+  const addToCartButtons = document.querySelectorAll('.item__add');
+  addToCartButtons.forEach((element) => {
+    element.addEventListener('click', addCart);
+  });
+};
+callFetchItems();
 
 window.onload = () => { };
