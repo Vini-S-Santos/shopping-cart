@@ -133,4 +133,14 @@ const callFetchItems = async () => {
 };
 callFetchItems();
 
+const buttomRemoveAll = () => {
+  const buttonRemove = document.querySelector('.empty-cart');
+
+  buttonRemove.addEventListener('click', () => {
+    const allCartItems = document.querySelectorAll('.cart__item');
+    allCartItems.forEach((element) => element.remove());
+  });
+};
+buttomRemoveAll();
+
 window.onload = () => { };
