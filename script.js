@@ -95,7 +95,7 @@ callFetchProducts();
  * @returns {Element} Elemento de um item do carrinho.
  */
 
- function callbackCartItem(event) {
+ function removeCartItem(event) {
   const eventTarget = event.target;
   if (eventTarget.className === 'cart__item') {
     eventTarget.remove();
@@ -106,7 +106,7 @@ const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
-  li.addEventListener('click', callbackCartItem);
+  li.addEventListener('click', removeCartItem);
   return li;
 };
 
