@@ -84,7 +84,7 @@ callFetchProducts();
  * @param {Element} product - Elemento do produto.
  * @returns {string} ID do produto.
  */
-// const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
+// const getIdFromProductItem = (product) => product.querySelector('span.item_id').innerText;
 
 /**
  * Função responsável por criar e retornar um item do carrinho.
@@ -99,8 +99,13 @@ callFetchProducts();
   const eventTarget = event.target;
   if (eventTarget.className === 'cart__item') {
     eventTarget.remove();
+    saveCartItems(totalCart.innerHTML);
+    localStorage.removeItem('cartItems');
   }
 }
+
+const clickAfterReload = () => totalCart.addEventListener('click', removeCartItem);
+clickAfterReload();
 
 const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
@@ -122,6 +127,7 @@ const addCart = async (event) => {
 
   const element = createCartItemElement(cartItem);
   totalCart.appendChild(element);
+  saveCartItems(totalCart.innerHTML);
 };
 
 const callFetchItems = async () => {
@@ -139,8 +145,14 @@ const buttomRemoveAll = () => {
   buttonRemove.addEventListener('click', () => {
     const allCartItems = document.querySelectorAll('.cart__item');
     allCartItems.forEach((element) => element.remove());
+    saveCartItems(totalCart.innerHTML);
+    localStorage.removeItem('cartItems');
   });
 };
 buttomRemoveAll();
 
-window.onload = () => { };
+window.onload = async () => {
+  const carr = getSavedCartItems();
+  const list = document.querySelector('.cart__items');
+  list.innerHTML = carr;
+};
