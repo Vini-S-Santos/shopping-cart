@@ -87,7 +87,7 @@ const totalPrice = async () => {
     const convertPriceString = Number(totalItem[i].innerText.split('$')[1]);
     total += convertPriceString;
   }
-  totalPriceDom.innerText = `Total da compra: $ ${(Math.round(total * 100) / 100)}`;
+  totalPriceDom.innerText = `Valor Total: $ ${(Math.round(total * 100) / 100)}`;
 };
 
 /**
