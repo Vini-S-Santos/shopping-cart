@@ -79,6 +79,18 @@ const callFetchProducts = async () => {
 };
 callFetchProducts();
 
+const totalPrice = async () => {
+  const totalItem = document.querySelectorAll('.cart__item');
+  const totalPriceDom = document.querySelector('.total-price');
+  let total = 0;
+  for (i = 0; i < totalItem.length; i += 1) {
+    const convertPriceString = Number(totalItem[i].innerText.split('$')[1]);
+    console.log(totalItem[i].innerText.split('$')[1]);
+    total += convertPriceString;
+  }
+  totalPriceDom.innerText = `Total da compra: $ ${(Math.round(total * 100) / 100)}`;
+};
+
 /**
  * Função que recupera o ID do produto passado como parâmetro.
  * @param {Element} product - Elemento do produto.
@@ -99,8 +111,9 @@ callFetchProducts();
   const eventTarget = event.target;
   if (eventTarget.className === 'cart__item') {
     eventTarget.remove();
-    saveCartItems(totalCart.innerHTML);
     localStorage.removeItem('cartItems');
+    totalPrice();
+    saveCartItems(totalCart.innerHTML);
   }
 }
 
@@ -127,6 +140,7 @@ const addCart = async (event) => {
 
   const element = createCartItemElement(cartItem);
   totalCart.appendChild(element);
+  totalPrice();
   saveCartItems(totalCart.innerHTML);
 };
 
@@ -146,6 +160,7 @@ const buttomRemoveAll = () => {
     const allCartItems = document.querySelectorAll('.cart__item');
     allCartItems.forEach((element) => element.remove());
     saveCartItems(totalCart.innerHTML);
+    totalPrice();
     localStorage.removeItem('cartItems');
   });
 };
