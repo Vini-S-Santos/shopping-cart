@@ -119,10 +119,11 @@ const totalPrice = async () => {
 const clickAfterReload = () => totalCart.addEventListener('click', removeCartItem);
 clickAfterReload();
 
-const createCartItemElement = ({ id, title, price }) => {
+const createCartItemElement = ({ id, title, price, thumbnail }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
-  li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
+  li.innerHTML = `<img class="" src='${thumbnail}'>`;
+  li.innerHTML += `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
   li.addEventListener('click', removeCartItem);
   return li;
 };
@@ -135,6 +136,7 @@ const addCart = async (event) => {
     id: awaitParameter.id,
     title: awaitParameter.title,
     price: awaitParameter.price,
+    thumbnail: awaitParameter.thumbnail,
   };
 
   const element = createCartItemElement(cartItem);
