@@ -1,13 +1,23 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+## Habilidades
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+- Efetuar requisições à Interface de Programação de Aplicativos do Mercado Livre;
+- Utilizar conhecimentos sobre JavaScript, CSS e HTML;
+- Trabalhar com funções assíncronas;
+- Implementar testes unitários.
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+---
+
+## O que foi desenvolvido
+
+Neste projeto, fizemos um **carrinho de compras** dinâmico! Consumindo dados diretamente de uma **API!**. Da sigla _interface de programação de aplicativos_, uma API é um ponto de contato na Internet com um determinado serviço. Através de ** requisições HTTP ** a esta API é possível interagir com ela como quem a criou planejou. Aqui, utilizamos a API do 'Mercado Livre' para buscar produtos para venda.
+
+---
+
+## Como executar:
+
+1. Instale as dependências e inicialize o projeto.
+* Install dependencies:
+* ```npm install```
+
+2. Run Cypress
+* ```npm run cypress:open```
